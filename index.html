@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="no-cache, max-age=0" http-equiv="cache-control">
+	<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" name="viewport">
+	<title>Red/Green/Refactor</title>
+	<style type="text/css">
+		html, body { margin:0; padding:0; background:#888; color:#fff; height:100%; }
+		body { font-family:helvertica,calibri,sans-serif; }
+		
+		#doCycle { padding: 1em; height:100%; box-sizing: border-box; }
+		#doCycle h1 { margin:0; }
+		
+		#doCycle.red { background:#800; }
+		#doCycle.red #cycleName::after { content: "Red"; }
+		#doCycle.red #cycleInstructions::after { content: "Write a failing test"; }
+		
+		#doCycle.green { background:#080; }
+		#doCycle.green #cycleName::after { content: "Green"; }
+		#doCycle.green #cycleInstructions::after { content: "Make it pass (simply)"; }
+		
+		#doCycle.refactor { background:#008; }
+		#doCycle.refactor #cycleName::after { content: "Refactor"; }
+		#doCycle.refactor #cycleInstructions::after { content: "Make it better"; }
+		
+	</style>
+</head>
+<body>
+	<div id="doCycle" class="red">
+		<h1 id="cycleName"></h1>
+		<p id="cycleInstructions"></p>
+	</div>
+	<script type="text/javascript">
+		
+		document.querySelector("#doCycle").addEventListener("click", doCycle);
+		
+		function doCycle() {
+			
+			var cycle = [ "red", "green", "refactor" ];
+			var nextClass = cycle[0];
+			
+			var element = document.querySelector("#doCycle");
+			for ( var i = 0, len = cycle.length; i < len; i++ ) {
+				if (element.classList.contains(cycle[i])) {
+					element.classList.remove(cycle[i]);
+					if (i < cycle.length - 1) nextClass = cycle[i+1];
+					break;
+				}
+			}
+			
+			element.classList.add(nextClass);
+		}
+	</script>
+</body>
+</html>
